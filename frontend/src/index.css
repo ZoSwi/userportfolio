@@ -877,8 +877,8 @@ h4 {
 
 @media (max-width: 640px) {
   .zoswi-panel-size {
-    width: min(95vw, 430px) !important;
-    height: min(58dvh, 500px) !important;
+    width: min(97vw, 450px) !important;
+    height: min(64dvh, 560px) !important;
   }
 
   .deck-slide::before {

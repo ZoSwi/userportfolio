@@ -3,7 +3,9 @@ import { useEffect, useRef } from "react";
 export const VoiceIntro = ({ onComplete }) => {
   const startedRef = useRef(false);
   const finishedRef = useRef(false);
+  const speakingRef = useRef(false);
   const fallbackTimerRef = useRef(null);
+  const startupCheckTimerRef = useRef(null);
 
   useEffect(() => {
     if (!("speechSynthesis" in window)) {
@@ -14,6 +16,8 @@ export const VoiceIntro = ({ onComplete }) => {
     const finish = () => {
       if (finishedRef.current) return;
       finishedRef.current = true;
+      speakingRef.current = false;
+      if (startupCheckTimerRef.current) window.clearTimeout(startupCheckTimerRef.current);
       onComplete();
     };
 
@@ -63,7 +67,7 @@ export const VoiceIntro = ({ onComplete }) => {
     };
 
     const playVoiceIntro = (attempt = 0) => {
-      if (startedRef.current || finishedRef.current) return;
+      if (finishedRef.current || startedRef.current || speakingRef.current) return;
 
       const jarvisScript =
         "Hello, I am ZoSwi AI. Welcome. I can guide you through Samhith's architecture work, engineering experience, and delivery approach.";
@@ -86,15 +90,20 @@ export const VoiceIntro = ({ onComplete }) => {
         utterance.voice = selectedVoice;
       }
 
-      startedRef.current = true;
+      speakingRef.current = true;
 
+      utterance.onstart = () => {
+        startedRef.current = true;
+      };
       utterance.onend = () => {
         if (fallbackTimerRef.current) window.clearTimeout(fallbackTimerRef.current);
         finish();
       };
       utterance.onerror = () => {
+        speakingRef.current = false;
         if (fallbackTimerRef.current) window.clearTimeout(fallbackTimerRef.current);
-        finish();
+        // On mobile, speech can be blocked without user activation.
+        // Keep listeners alive so next interaction can retry.
       };
 
       // Prevent queue conflicts if another utterance exists.
@@ -102,14 +111,21 @@ export const VoiceIntro = ({ onComplete }) => {
       window.speechSynthesis.resume();
       window.speechSynthesis.speak(utterance);
 
-      // Some browsers do not reliably fire onend for blocked utterances.
-      fallbackTimerRef.current = window.setTimeout(finish, 8000);
+      // If speech didn't start shortly after speak(), allow retry.
+      startupCheckTimerRef.current = window.setTimeout(() => {
+        if (!startedRef.current && !finishedRef.current) {
+          speakingRef.current = false;
+        }
+      }, 700);
+
+      // Some browsers do not reliably fire onend for active utterances.
+      fallbackTimerRef.current = window.setTimeout(() => {
+        if (startedRef.current) finish();
+      }, 9000);
     };
 
     const handleFirstInteraction = () => {
       playVoiceIntro();
-      window.removeEventListener("pointerdown", handleFirstInteraction);
-      window.removeEventListener("keydown", handleFirstInteraction);
     };
 
     const handleExplicitPlay = () => {
@@ -125,14 +141,19 @@ export const VoiceIntro = ({ onComplete }) => {
     };
 
     // Fallback for browsers requiring user gesture.
-    window.addEventListener("pointerdown", handleFirstInteraction, { once: true });
-    window.addEventListener("keydown", handleFirstInteraction, { once: true });
+    window.addEventListener("pointerdown", handleFirstInteraction);
+    window.addEventListener("touchstart", handleFirstInteraction);
+    window.addEventListener("click", handleFirstInteraction);
+    window.addEventListener("keydown", handleFirstInteraction);
     window.addEventListener("zoswi:play-voice", handleExplicitPlay);
 
     return () => {
       window.clearTimeout(autoStartTimer);
       if (fallbackTimerRef.current) window.clearTimeout(fallbackTimerRef.current);
+      if (startupCheckTimerRef.current) window.clearTimeout(startupCheckTimerRef.current);
       window.removeEventListener("pointerdown", handleFirstInteraction);
+      window.removeEventListener("touchstart", handleFirstInteraction);
+      window.removeEventListener("click", handleFirstInteraction);
       window.removeEventListener("keydown", handleFirstInteraction);
       window.removeEventListener("zoswi:play-voice", handleExplicitPlay);
       window.speechSynthesis.onvoiceschanged = null;
