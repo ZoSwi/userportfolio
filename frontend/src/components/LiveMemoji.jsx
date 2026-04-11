@@ -5,9 +5,10 @@ import profilePhoto from "../assets/profile-photo.png";
 export const LiveMemoji = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [touchExpanded, setTouchExpanded] = useState(false);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const isExpanded = isHovered || isTouchDevice;
+  const isExpanded = isHovered || touchExpanded;
 
   const springConfig = { damping: 22, stiffness: 140 };
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), springConfig);
@@ -15,9 +16,26 @@ export const LiveMemoji = () => {
 
   useEffect(() => {
     const touchQuery = window.matchMedia("(hover: none), (pointer: coarse)");
-    const handleTouchPref = () => setIsTouchDevice(touchQuery.matches);
+    let touchTimer;
+    const handleTouchPref = () => {
+      const isTouch = touchQuery.matches;
+      setIsTouchDevice(isTouch);
+      if (!isTouch) {
+        setTouchExpanded(false);
+        if (touchTimer) window.clearTimeout(touchTimer);
+      }
+      setTouchExpanded(false);
+    };
+
+    const playTouchMorph = () => {
+      if (!touchQuery.matches) return;
+      setTouchExpanded(false);
+      if (touchTimer) window.clearTimeout(touchTimer);
+      touchTimer = window.setTimeout(() => setTouchExpanded(true), 260);
+    };
     handleTouchPref();
     touchQuery.addEventListener("change", handleTouchPref);
+    window.addEventListener("zoswi:intro-complete", playTouchMorph);
 
     const handleMouseMove = (e) => {
       const rect = document.getElementById("memoji-container")?.getBoundingClientRect();
@@ -34,6 +52,8 @@ export const LiveMemoji = () => {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       touchQuery.removeEventListener("change", handleTouchPref);
+      window.removeEventListener("zoswi:intro-complete", playTouchMorph);
+      if (touchTimer) window.clearTimeout(touchTimer);
     };
   }, [mouseX, mouseY]);
 
@@ -43,6 +63,11 @@ export const LiveMemoji = () => {
       className="relative mx-auto w-full max-w-[430px]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={() => {
+        if (!isTouchDevice) return;
+        setTouchExpanded(false);
+        window.setTimeout(() => setTouchExpanded(true), 220);
+      }}
     >
       <motion.div
         animate={{ y: isExpanded ? [0, -8, 0] : [0, -4, 0] }}
@@ -64,13 +89,19 @@ export const LiveMemoji = () => {
             borderRadius: isExpanded ? "2rem" : "9999px",
             padding: 0,
           }}
-          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          transition={{
+            duration: isTouchDevice ? 1.1 : 0.55,
+            ease: [0.16, 1, 0.3, 1],
+          }}
           className="relative mx-auto"
           style={{ transform: "translateZ(50px)" }}
         >
           <motion.div
             animate={{ borderRadius: isExpanded ? "1.55rem" : "9999px" }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            transition={{
+              duration: isTouchDevice ? 1.1 : 0.55,
+              ease: [0.16, 1, 0.3, 1],
+            }}
             className="relative overflow-hidden"
           >
             <img

@@ -48,6 +48,7 @@ function Navbar() {
             ? "premium-panel soft-ring"
             : "border-transparent bg-transparent"
         }`}
+        style={{ overflow: mobileMenuOpen ? "visible" : undefined }}
       >
         {isScrolled && (
           <>

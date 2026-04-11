@@ -135,7 +135,7 @@ function ZoswiBotWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 18, scale: 0.96 }}
             transition={{ duration: 0.24 }}
-            className="zoswi-widget zoswi-panel-size flex h-[min(76vh,620px)] w-[min(94vw,440px)] min-h-0 flex-col overflow-hidden rounded-2xl border border-white/12 bg-[#081426]/95"
+            className="zoswi-widget zoswi-panel-size flex h-[min(76vh,620px)] w-[min(94vw,440px)] min-h-0 flex-col overflow-hidden rounded-2xl border border-white/12 bg-[#081426]/95 sm:h-[min(80vh,700px)] sm:w-[min(88vw,540px)] lg:w-[580px]"
           >
             <div className="relative flex items-center justify-between border-b border-white/10 px-4 py-3">
               <div className="flex items-center gap-2.5">
@@ -157,7 +157,7 @@ function ZoswiBotWidget() {
             <div
               ref={chatWindowRef}
               data-lenis-prevent
-              className="zoswi-chat-window min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-3"
+              className="zoswi-chat-window min-h-0 flex-1 space-y-3.5 overflow-y-auto px-4 py-3 sm:px-5"
             >
               {messages.map((item, index) => {
                 const isAssistant = item.role === "assistant";
@@ -172,11 +172,7 @@ function ZoswiBotWidget() {
                       </span>
                     )}
                     <div
-                      className={`max-w-[82%] rounded-2xl border px-3 py-2 text-sm leading-relaxed ${
-                        isAssistant
-                          ? "border-white/10 bg-[#112943]/84 text-[#c8def2]"
-                          : "border-[#62aee3]/40 bg-[#1a4268]/86 text-[#e8f5ff]"
-                      }`}
+                      className={`zoswi-msg-bubble ${isAssistant ? "zoswi-msg-bubble-ai" : "zoswi-msg-bubble-user"}`}
                     >
                       <p className="break-words [overflow-wrap:anywhere]">{item.text}</p>
                       {item.ctaHref && item.ctaLabel && (
@@ -203,7 +199,7 @@ function ZoswiBotWidget() {
                   <span className="inline-flex shrink-0 items-center justify-center">
                     <img src={aiAvatarSrc} alt="ZoSwi AI" className="zoswi-ai-icon h-8 w-8 object-contain" />
                   </span>
-                  <div className="max-w-[82%] rounded-2xl border border-white/10 bg-[#112943]/84 px-3 py-2 text-sm text-[#c8def2]">
+                  <div className="zoswi-msg-bubble zoswi-msg-bubble-ai">
                     ZoSwi AI is reviewing context...
                   </div>
                 </div>

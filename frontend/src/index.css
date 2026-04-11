@@ -630,6 +630,60 @@ h4 {
   display: none;
 }
 
+.zoswi-msg-bubble {
+  position: relative;
+  max-width: 82%;
+  padding: 0.62rem 0.78rem;
+  border-radius: 1.25rem;
+  border: 1px solid transparent;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  backdrop-filter: blur(8px);
+}
+
+.zoswi-msg-bubble-ai {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: linear-gradient(180deg, rgba(31, 47, 66, 0.96), rgba(22, 36, 52, 0.92));
+  color: #d4e6f8;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.zoswi-msg-bubble-ai::after {
+  content: "";
+  position: absolute;
+  left: -6px;
+  bottom: 7px;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(180deg, rgba(30, 47, 66, 0.96), rgba(22, 36, 52, 0.92));
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  transform: rotate(45deg);
+  border-bottom-left-radius: 2px;
+}
+
+.zoswi-msg-bubble-user {
+  border-color: rgba(120, 194, 245, 0.55);
+  background: linear-gradient(180deg, #1f89e8, #1a76d8);
+  color: #f6fbff;
+  border-bottom-right-radius: 0.5rem;
+  box-shadow: 0 12px 22px rgba(12, 74, 128, 0.32);
+}
+
+.zoswi-msg-bubble-user::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  bottom: 7px;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(180deg, #1f89e8, #1a76d8);
+  border-right: 1px solid rgba(120, 194, 245, 0.55);
+  border-bottom: 1px solid rgba(120, 194, 245, 0.55);
+  transform: rotate(-45deg);
+  border-bottom-right-radius: 2px;
+}
+
 .how-i-think-shell {
   position: relative;
 }

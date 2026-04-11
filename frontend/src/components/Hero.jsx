@@ -9,7 +9,6 @@ import {
   SiReact,
   SiSpringboot,
 } from "react-icons/si";
-import profilePhoto from "../assets/profile-photo.png";
 import { heroStats, profile } from "../data/portfolioData";
 import FounderHighlight from "./FounderHighlight";
 import { LiveMemoji } from "./LiveMemoji";
@@ -70,13 +69,7 @@ function Hero() {
       >
         <div className="relative z-20 min-w-0 space-y-6 pr-1 sm:space-y-7 lg:pr-8">
           <div className="relative mx-auto block w-full max-w-[300px] pb-2 md:hidden">
-            <div className="relative overflow-hidden rounded-[1.85rem] border border-white/14 bg-[#081323]/78 p-2.5 shadow-[0_22px_44px_rgba(0,0,0,0.34)]">
-              <img
-                src={profilePhoto}
-                alt="Portrait of Samhith Cheruku"
-                className="block h-[18rem] w-full rounded-[1.5rem] object-cover object-top"
-              />
-            </div>
+            <LiveMemoji />
           </div>
 
           <div className="space-y-5">

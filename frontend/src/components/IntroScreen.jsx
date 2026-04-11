@@ -14,6 +14,7 @@ export const IntroScreen = ({ onComplete }) => {
       setHasVisited(true);
       setShowIntro(false);
       onComplete();
+      window.dispatchEvent(new CustomEvent("zoswi:intro-complete"));
       return;
     }
 
@@ -23,6 +24,7 @@ export const IntroScreen = ({ onComplete }) => {
       setTimeout(() => {
         onComplete();
         window.dispatchEvent(new CustomEvent("zoswi:play-voice"));
+        window.dispatchEvent(new CustomEvent("zoswi:intro-complete"));
       }, 700);
     }, 2600);
 
@@ -35,6 +37,7 @@ export const IntroScreen = ({ onComplete }) => {
     onComplete();
     window.setTimeout(() => {
       window.dispatchEvent(new CustomEvent("zoswi:play-voice"));
+      window.dispatchEvent(new CustomEvent("zoswi:intro-complete"));
     }, 80);
   };
 
