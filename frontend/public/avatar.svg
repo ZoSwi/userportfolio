@@ -1,0 +1,111 @@
+<svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(300 260) rotate(90) scale(260)">
+      <stop stop-color="#7EA2FF" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#7EA2FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cardBg" x1="120" y1="140" x2="470" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E3A5F"/>
+      <stop offset="1" stop-color="#0F1B2E"/>
+    </linearGradient>
+    <linearGradient id="face" x1="300" y1="180" x2="300" y2="340" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD7BA"/>
+      <stop offset="1" stop-color="#F4C4A0"/>
+    </linearGradient>
+    <linearGradient id="shirt" x1="300" y1="340" x2="300" y2="480" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2D4A7C"/>
+      <stop offset="1" stop-color="#1A2F52"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Glow -->
+  <circle cx="300" cy="300" r="240" fill="url(#bg)"/>
+
+  <!-- Tech Pattern Background -->
+  <g opacity="0.08">
+    <circle cx="200" cy="200" r="3" fill="#7EA2FF"/>
+    <circle cx="400" cy="180" r="3" fill="#7EA2FF"/>
+    <circle cx="250" cy="420" r="3" fill="#7EA2FF"/>
+    <circle cx="380" cy="440" r="3" fill="#7EA2FF"/>
+    <path d="M200 200L250 220L280 200" stroke="#7EA2FF" stroke-width="1"/>
+    <path d="M400 180L420 200L400 220" stroke="#7EA2FF" stroke-width="1"/>
+  </g>
+
+  <!-- Card Container -->
+  <rect x="130" y="120" width="340" height="360" rx="170" fill="url(#cardBg)" stroke="#7EA2FF" stroke-opacity="0.45" stroke-width="2"/>
+
+  <!-- Neck -->
+  <rect x="275" y="320" width="50" height="40" fill="url(#face)" rx="8"/>
+
+  <!-- Shirt/Professional Attire -->
+  <path d="M180 430C180 390 220 355 300 355C380 355 420 390 420 430L420 480L180 480Z" fill="url(#shirt)"/>
+
+  <!-- Collar -->
+  <path d="M275 355L260 380L240 390" stroke="#1A2F52" stroke-width="2" fill="none"/>
+  <path d="M325 355L340 380L360 390" stroke="#1A2F52" stroke-width="2" fill="none"/>
+
+  <!-- Shirt Buttons -->
+  <circle cx="300" cy="380" r="3" fill="#7EA2FF" opacity="0.6"/>
+  <circle cx="300" cy="405" r="3" fill="#7EA2FF" opacity="0.6"/>
+
+  <!-- Head -->
+  <ellipse cx="300" cy="250" rx="85" ry="95" fill="url(#face)"/>
+
+  <!-- Hair -->
+  <path d="M215 235C215 180 250 160 300 160C350 160 385 180 385 235C385 220 370 200 350 195C330 190 310 188 300 188C290 188 270 190 250 195C230 200 215 220 215 235Z" fill="#1A2433"/>
+
+  <!-- Hair Details -->
+  <path d="M240 185C245 175 260 168 280 165" stroke="#0D1520" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <path d="M360 185C355 175 340 168 320 165" stroke="#0D1520" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- Ears -->
+  <ellipse cx="215" cy="260" rx="12" ry="18" fill="#F4C4A0"/>
+  <ellipse cx="385" cy="260" rx="12" ry="18" fill="#F4C4A0"/>
+
+  <!-- Glasses Frame -->
+  <g stroke="#2D4A7C" stroke-width="3" fill="none">
+    <circle cx="260" cy="250" r="28" opacity="0.9"/>
+    <circle cx="340" cy="250" r="28" opacity="0.9"/>
+    <path d="M288 250L312 250" stroke-width="3"/>
+    <path d="M232 250L220 255" stroke-width="2.5"/>
+    <path d="M368 250L380 255" stroke-width="2.5"/>
+  </g>
+
+  <!-- Glasses Shine -->
+  <circle cx="270" cy="240" r="6" fill="white" opacity="0.4"/>
+  <circle cx="350" cy="240" r="6" fill="white" opacity="0.4"/>
+
+  <!-- Eyes -->
+  <ellipse cx="260" cy="250" rx="8" ry="12" fill="#2D3748"/>
+  <ellipse cx="340" cy="250" rx="8" ry="12" fill="#2D3748"/>
+  <circle cx="262" cy="248" r="3" fill="white"/>
+  <circle cx="342" cy="248" r="3" fill="white"/>
+
+  <!-- Eyebrows -->
+  <path d="M235 225C245 220 260 220 275 222" stroke="#1A2433" stroke-width="3" stroke-linecap="round"/>
+  <path d="M365 225C355 220 340 220 325 222" stroke="#1A2433" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Nose -->
+  <path d="M300 265L295 285C295 288 297 290 300 290C303 290 305 288 305 285Z" fill="#E8B396" opacity="0.5"/>
+
+  <!-- Smile -->
+  <path d="M275 300C282 308 290 312 300 312C310 312 318 308 325 300" stroke="#2D3748" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Code Symbol Accent -->
+  <g transform="translate(350, 150)" filter="url(#glow)">
+    <text fill="#7EA2FF" font-size="28" font-family="monospace" font-weight="bold" opacity="0.85">&lt;/&gt;</text>
+  </g>
+
+  <!-- Tech Badge -->
+  <g transform="translate(160, 380)">
+    <rect width="50" height="20" rx="10" fill="#7EA2FF" opacity="0.2"/>
+    <text x="25" y="14" text-anchor="middle" fill="#7EA2FF" font-size="10" font-weight="600">API</text>
+  </g>
+</svg>
