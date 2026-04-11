@@ -6,12 +6,6 @@ export const VoiceIntro = ({ onComplete }) => {
   const fallbackTimerRef = useRef(null);
 
   useEffect(() => {
-    const hasHeardVoice = sessionStorage.getItem("voice_intro_played");
-    if (hasHeardVoice) {
-      onComplete();
-      return;
-    }
-
     if (!("speechSynthesis" in window)) {
       onComplete();
       return;
@@ -20,7 +14,6 @@ export const VoiceIntro = ({ onComplete }) => {
     const finish = () => {
       if (finishedRef.current) return;
       finishedRef.current = true;
-      sessionStorage.setItem("voice_intro_played", "true");
       onComplete();
     };
 
@@ -73,12 +66,12 @@ export const VoiceIntro = ({ onComplete }) => {
       if (startedRef.current || finishedRef.current) return;
 
       const jarvisScript =
-        "Hello, I am ZoSwi AI. I am here to help you understand the work of my founder, Samhith Cheruku, Application Architect and Software Engineer. I am ready to guide you through his experience, architecture decisions, and delivery approach.";
+        "Hello, I am ZoSwi AI. Welcome. I can guide you through Samhith's architecture work, engineering experience, and delivery approach.";
 
       const utterance = new SpeechSynthesisUtterance(jarvisScript);
-      utterance.rate = 0.9;
-      utterance.pitch = 1.08;
-      utterance.volume = 1;
+      utterance.rate = 0.96;
+      utterance.pitch = 1.16;
+      utterance.volume = 0.9;
       utterance.lang = "en-US";
 
       const voices = window.speechSynthesis.getVoices();
@@ -106,16 +99,21 @@ export const VoiceIntro = ({ onComplete }) => {
 
       // Prevent queue conflicts if another utterance exists.
       window.speechSynthesis.cancel();
+      window.speechSynthesis.resume();
       window.speechSynthesis.speak(utterance);
 
       // Some browsers do not reliably fire onend for blocked utterances.
-      fallbackTimerRef.current = window.setTimeout(finish, 7000);
+      fallbackTimerRef.current = window.setTimeout(finish, 8000);
     };
 
     const handleFirstInteraction = () => {
       playVoiceIntro();
       window.removeEventListener("pointerdown", handleFirstInteraction);
       window.removeEventListener("keydown", handleFirstInteraction);
+    };
+
+    const handleExplicitPlay = () => {
+      playVoiceIntro();
     };
 
     // Try autoplay first.
@@ -129,12 +127,14 @@ export const VoiceIntro = ({ onComplete }) => {
     // Fallback for browsers requiring user gesture.
     window.addEventListener("pointerdown", handleFirstInteraction, { once: true });
     window.addEventListener("keydown", handleFirstInteraction, { once: true });
+    window.addEventListener("zoswi:play-voice", handleExplicitPlay);
 
     return () => {
       window.clearTimeout(autoStartTimer);
       if (fallbackTimerRef.current) window.clearTimeout(fallbackTimerRef.current);
       window.removeEventListener("pointerdown", handleFirstInteraction);
       window.removeEventListener("keydown", handleFirstInteraction);
+      window.removeEventListener("zoswi:play-voice", handleExplicitPlay);
       window.speechSynthesis.onvoiceschanged = null;
     };
   }, [onComplete]);

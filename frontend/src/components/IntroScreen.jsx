@@ -20,7 +20,10 @@ export const IntroScreen = ({ onComplete }) => {
     const hideTimer = setTimeout(() => {
       sessionStorage.setItem(INTRO_VERSION_KEY, "true");
       setShowIntro(false);
-      setTimeout(onComplete, 700);
+      setTimeout(() => {
+        onComplete();
+        window.dispatchEvent(new CustomEvent("zoswi:play-voice"));
+      }, 700);
     }, 2600);
 
     return () => window.clearTimeout(hideTimer);
@@ -30,6 +33,9 @@ export const IntroScreen = ({ onComplete }) => {
     sessionStorage.setItem(INTRO_VERSION_KEY, "true");
     setShowIntro(false);
     onComplete();
+    window.setTimeout(() => {
+      window.dispatchEvent(new CustomEvent("zoswi:play-voice"));
+    }, 80);
   };
 
   if (hasVisited) return null;

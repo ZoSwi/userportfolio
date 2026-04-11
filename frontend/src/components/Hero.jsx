@@ -9,6 +9,7 @@ import {
   SiReact,
   SiSpringboot,
 } from "react-icons/si";
+import profilePhoto from "../assets/profile-photo.png";
 import { heroStats, profile } from "../data/portfolioData";
 import FounderHighlight from "./FounderHighlight";
 import { LiveMemoji } from "./LiveMemoji";
@@ -69,9 +70,13 @@ function Hero() {
       >
         <div className="relative z-20 min-w-0 space-y-6 pr-1 sm:space-y-7 lg:pr-8">
           <div className="relative mx-auto block w-full max-w-[300px] pb-2 md:hidden">
-            <div className="photo-orbit h-[15.5rem] w-[15.5rem] opacity-55" />
-            <div className="photo-orbit h-[11.5rem] w-[11.5rem] opacity-35" />
-            <LiveMemoji />
+            <div className="relative overflow-hidden rounded-[1.85rem] border border-white/14 bg-[#081323]/78 p-2.5 shadow-[0_22px_44px_rgba(0,0,0,0.34)]">
+              <img
+                src={profilePhoto}
+                alt="Portrait of Samhith Cheruku"
+                className="block h-[18rem] w-full rounded-[1.5rem] object-cover object-top"
+              />
+            </div>
           </div>
 
           <div className="space-y-5">
@@ -88,15 +93,18 @@ function Hero() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.18 }}
-              className="max-w-4xl text-[2.05rem] font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-5xl md:text-[2.85rem] lg:text-[3.2rem] xl:text-6xl 2xl:text-7xl"
+              className="max-w-4xl text-[clamp(1.85rem,4.9vw,3.2rem)] font-semibold leading-[1.03] tracking-[-0.032em] text-white xl:text-6xl 2xl:text-7xl"
             >
-              <span className="block">
-                <span className="inline-block max-w-full whitespace-normal bg-gradient-to-r from-white via-[var(--text)] to-[var(--accent-light)] bg-clip-text text-transparent xl:w-max xl:whitespace-nowrap">
+              <span className="block w-fit max-w-full">
+                <span className="inline-flex max-w-full whitespace-normal bg-gradient-to-r from-white via-[var(--text)] to-[var(--accent-light)] bg-clip-text text-transparent md:hidden">
                   Application Architect &amp; Engineer
                 </span>
+                <span className="hidden max-w-full whitespace-nowrap bg-gradient-to-r from-white via-[var(--text)] to-[var(--accent-light)] bg-clip-text pr-[0.2em] text-transparent md:inline-flex sm:pr-[0.24em]">
+                  Application{"\u00A0"}Architect
+                </span>
               </span>
-              <span className="mt-3 block">
-                <span className="inline-block max-w-full whitespace-normal bg-gradient-to-r from-white via-[var(--accent-light)] to-[var(--accent)] bg-clip-text text-transparent xl:w-max xl:whitespace-nowrap">
+              <span className="mt-2 block">
+                <span className="inline-block max-w-full whitespace-normal bg-gradient-to-r from-white via-[var(--accent-light)] to-[var(--accent)] bg-clip-text text-transparent">
                   Founder of ZoSwi
                 </span>
               </span>

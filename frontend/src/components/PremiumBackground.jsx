@@ -1,6 +1,38 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 function PremiumBackground() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const update = () => {
+      setIsMobile(window.matchMedia("(max-width: 640px), (hover: none), (pointer: coarse)").matches);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  if (isMobile) {
+    return (
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_14%,_rgba(31,204,156,0.13),_transparent_35%),radial-gradient(circle_at_84%_22%,_rgba(96,165,250,0.12),_transparent_30%),linear-gradient(180deg,_rgba(8,17,29,0.96)_0%,_rgba(6,14,24,1)_100%)]" />
+        <div className="absolute inset-0 opacity-[0.1]">
+          <svg className="h-full w-full" preserveAspectRatio="none" viewBox="0 0 1440 1200">
+            <defs>
+              <linearGradient id="mobilePremiumLine" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#34d399" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.45" />
+              </linearGradient>
+            </defs>
+            <path d="M110 260C260 330 370 420 520 410C680 400 790 300 930 320C1060 338 1170 430 1320 520" fill="none" stroke="url(#mobilePremiumLine)" strokeWidth="1.05" />
+            <path d="M80 760C250 700 420 660 560 700C720 742 850 835 1010 828C1140 822 1240 740 1360 650" fill="none" stroke="url(#mobilePremiumLine)" strokeWidth="0.95" />
+          </svg>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(31,204,156,0.16),_transparent_28%),linear-gradient(180deg,_rgba(8,17,29,0.94)_0%,_rgba(6,14,24,0.98)_100%)]" />
