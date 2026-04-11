@@ -70,9 +70,9 @@ function ContactSection() {
   };
 
   return (
-    <section id="contact" className="mx-auto max-w-7xl px-6 pb-20 pt-28 sm:px-10 lg:px-20">
+    <section id="contact" className="mx-auto max-w-7xl px-6 pb-16 pt-20 sm:px-10 sm:pb-20 sm:pt-28 lg:px-20">
       <Reveal>
-        <div className="contact-premium-shell group relative overflow-hidden rounded-[32px] border border-white/10 bg-[var(--surface)] p-10 md:p-14">
+        <div className="contact-premium-shell group relative overflow-hidden rounded-[32px] border border-white/10 bg-[var(--surface)] p-6 sm:p-10 md:p-14">
           <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-[var(--accent)]/10 blur-3xl" />
           <div className="contact-hover-glow pointer-events-none absolute inset-0" />
           <div className="contact-grid-overlay pointer-events-none absolute inset-0" />
@@ -82,7 +82,7 @@ function ContactSection() {
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--muted)]">
                 Contact
               </p>
-              <h2 className="mt-4 text-4xl font-semibold leading-tight tracking-[-0.03em] text-white md:text-6xl">
+              <h2 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.03em] text-white sm:text-4xl md:text-6xl">
                 Let&apos;s discuss backend and architecture delivery.
               </h2>
               <p className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--text-secondary)]">

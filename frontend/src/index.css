@@ -823,7 +823,24 @@ h4 {
 
 @media (max-width: 640px) {
   .zoswi-panel-size {
-    width: min(96vw, 430px) !important;
-    height: min(72dvh, 560px) !important;
+    width: min(95vw, 430px) !important;
+    height: min(58dvh, 500px) !important;
+  }
+
+  .deck-slide::before {
+    display: none;
+  }
+
+  .premium-panel,
+  .case-card,
+  .contact-premium-shell,
+  .ask-premium-panel {
+    backdrop-filter: blur(16px);
+  }
+
+  .about-grid-lines,
+  .about-diagonal-lines,
+  .how-i-think-grid {
+    opacity: 0.26;
   }
 }

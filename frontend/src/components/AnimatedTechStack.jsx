@@ -78,7 +78,7 @@ export const AnimatedTechStack = () => {
     <motion.section
       ref={containerRef}
       style={{ opacity }}
-      className="deck-slide relative overflow-hidden py-32"
+      className="deck-slide relative overflow-hidden py-24 sm:py-32"
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-0 h-80 w-80 -translate-x-1/2 rounded-full bg-[var(--accent)]/8 blur-3xl" />

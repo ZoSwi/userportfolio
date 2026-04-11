@@ -64,7 +64,7 @@ function About() {
   ];
 
   return (
-    <section id="about" className="deck-slide mx-auto max-w-7xl px-6 py-32 sm:px-10 lg:px-20">
+    <section id="about" className="deck-slide mx-auto max-w-7xl px-6 py-24 sm:px-10 sm:py-32 lg:px-20">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="about-grid-lines absolute inset-0 opacity-60" />
         <div className="about-diagonal-lines absolute inset-0 opacity-45" />
@@ -78,7 +78,7 @@ function About() {
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--muted)]">
               About
             </p>
-            <h2 className="max-w-2xl text-4xl font-semibold leading-tight tracking-[-0.03em] text-white md:text-5xl">
+            <h2 className="max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.03em] text-white sm:text-4xl md:text-5xl">
               Building modern enterprise platforms with architecture depth and execution discipline.
             </h2>
 
@@ -127,10 +127,10 @@ function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45 }}
-              className="relative [perspective:1600px]"
+              className="relative hidden [perspective:1600px] sm:block"
             >
               <div className="absolute inset-3 rounded-[1.25rem] bg-[radial-gradient(circle,_rgba(96,165,250,0.18),_transparent_70%)] blur-2xl" />
-              <div className="relative overflow-hidden rounded-[1.25rem] border border-white/10 bg-[#071220]/90 p-4 shadow-[0_24px_60px_rgba(0,0,0,0.3)] [transform:rotateX(6deg)_rotateY(-4deg)]">
+              <div className="relative overflow-hidden rounded-[1.25rem] border border-white/10 bg-[#071220]/90 p-4 shadow-[0_24px_60px_rgba(0,0,0,0.3)] sm:[transform:rotateX(6deg)_rotateY(-4deg)]">
                 <div className="mb-3 flex items-center justify-between border-b border-white/8 pb-2">
                   <div className="flex items-center gap-2">
                     <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
@@ -165,11 +165,11 @@ function About() {
           <div className="premium-panel soft-ring about-feature-panel relative space-y-8 rounded-[2rem] p-9 md:p-12 lg:mt-8">
             <div className="absolute right-8 top-8 h-24 w-24 rounded-full bg-[radial-gradient(circle,_rgba(52,211,153,0.22),_transparent_65%)] blur-2xl" />
             <div className="about-identity flex items-center gap-4 border-b border-white/10 pb-5">
-              <div className="about-avatar-wrap">
+              <div className="about-avatar-wrap soft-ring">
                 <img
                   src={profilePhoto}
                   alt={profile.name}
-                  className="about-avatar h-14 w-14 rounded-full object-cover"
+                  className="about-avatar h-14 w-14 rounded-full object-cover scale-[1.1] object-top"
                 />
               </div>
               <div>
@@ -249,7 +249,7 @@ function About() {
       </div>
 
       <Reveal delay={0.15}>
-        <div className="relative mt-14 overflow-hidden py-4">
+        <div className="relative mt-14 hidden overflow-hidden py-4 sm:block">
           <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[var(--bg)] to-transparent z-10" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[var(--bg)] to-transparent z-10" />
 

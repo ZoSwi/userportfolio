@@ -55,7 +55,7 @@ function Hero() {
     <section
       id="top"
       ref={ref}
-      className="relative mx-auto flex min-h-screen max-w-7xl items-center overflow-x-clip px-4 pb-20 pt-24 sm:px-10 lg:px-20"
+      className="relative mx-auto flex min-h-screen max-w-7xl items-center overflow-x-clip px-4 pb-14 pt-24 sm:px-10 sm:pb-20 lg:px-20"
     >
       <motion.div style={{ y }} className="pointer-events-none absolute inset-0">
         <div className="absolute left-[8%] top-24 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
@@ -67,7 +67,13 @@ function Hero() {
         style={{ opacity }}
         className="relative z-10 grid w-full items-start gap-10 md:grid-cols-[minmax(0,1.3fr)_minmax(260px,0.7fr)] md:items-center lg:gap-14"
       >
-        <div className="relative z-20 min-w-0 space-y-7 pr-1 lg:pr-8">
+        <div className="relative z-20 min-w-0 space-y-6 pr-1 sm:space-y-7 lg:pr-8">
+          <div className="relative mx-auto block w-full max-w-[300px] pb-2 md:hidden">
+            <div className="photo-orbit h-[15.5rem] w-[15.5rem] opacity-55" />
+            <div className="photo-orbit h-[11.5rem] w-[11.5rem] opacity-35" />
+            <LiveMemoji />
+          </div>
+
           <div className="space-y-5">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -82,7 +88,7 @@ function Hero() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.18 }}
-              className="max-w-4xl text-[2.15rem] font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-5xl md:text-[2.85rem] lg:text-[3.2rem] xl:text-6xl 2xl:text-7xl"
+              className="max-w-4xl text-[2.05rem] font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-5xl md:text-[2.85rem] lg:text-[3.2rem] xl:text-6xl 2xl:text-7xl"
             >
               <span className="block">
                 <span className="inline-block max-w-full whitespace-normal bg-gradient-to-r from-white via-[var(--text)] to-[var(--accent-light)] bg-clip-text text-transparent xl:w-max xl:whitespace-nowrap">
@@ -110,14 +116,14 @@ function Hero() {
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.34 }}
-            className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+            className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4"
           >
             {heroStats.map((stat) => (
               <motion.div
                 key={stat.label}
                 whileHover={{ y: -3, scale: 1.015 }}
                 transition={{ duration: 0.24 }}
-                className="hero-stat group relative rounded-2xl p-4"
+                className="hero-stat group relative rounded-2xl p-3.5 sm:p-4"
               >
                 <div className="pointer-events-none absolute right-3 top-3 h-2 w-10 rounded-full bg-gradient-to-r from-[var(--accent-light)]/0 via-[var(--accent-light)]/45 to-[var(--accent)]/0 opacity-0 blur-[1px] transition-opacity duration-300 group-hover:opacity-100" />
                 <p className="text-2xl font-semibold tracking-[-0.03em] text-white">{stat.value}</p>
@@ -141,7 +147,7 @@ function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.46 }}
-            className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#071220]/70 p-3"
+            className="relative hidden overflow-hidden rounded-2xl border border-white/10 bg-[#071220]/70 p-3 sm:block"
           >
             <div className="mb-2 flex items-center justify-between">
               <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
@@ -209,13 +215,17 @@ function Hero() {
             </motion.button>
           </motion.div>
 
+          <div className="space-y-6 md:hidden">
+            <FounderHighlight />
+          </div>
+
         </div>
 
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.22 }}
-          className="relative z-10 mx-auto w-full max-w-[320px] pt-3 sm:max-w-[400px] md:justify-self-end lg:max-w-[460px] lg:pt-10 xl:max-w-[530px]"
+          className="relative z-10 mx-auto hidden w-full max-w-[320px] pt-3 sm:max-w-[400px] md:block md:justify-self-end lg:max-w-[460px] lg:pt-10 xl:max-w-[530px]"
         >
           <div className="photo-orbit h-[24rem] w-[24rem] opacity-60 sm:h-[30rem] sm:w-[30rem]" />
           <div className="photo-orbit h-[18rem] w-[18rem] opacity-40 sm:h-[22rem] sm:w-[22rem]" />

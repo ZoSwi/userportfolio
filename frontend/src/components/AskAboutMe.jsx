@@ -43,14 +43,14 @@ function AskAboutMe() {
   };
 
   return (
-    <section id="ask" className="mx-auto max-w-7xl px-6 py-28 sm:px-10 lg:px-20">
+    <section id="ask" className="mx-auto max-w-7xl px-6 py-20 sm:px-10 sm:py-28 lg:px-20">
       <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
         <Reveal>
           <div className="space-y-6">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--muted)]">
               Ask About My Work
             </p>
-            <h2 className="text-4xl font-semibold leading-tight tracking-[-0.03em] text-white md:text-5xl">
+            <h2 className="text-3xl font-semibold leading-tight tracking-[-0.03em] text-white sm:text-4xl md:text-5xl">
               Work Focused Technical Insights
             </h2>
             <p className="text-base leading-relaxed text-[var(--text-secondary)]">
@@ -73,7 +73,7 @@ function AskAboutMe() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="ask-premium-panel relative mt-4 overflow-hidden rounded-[28px] border border-white/10 bg-[var(--surface)]/92 p-8 md:mt-6 md:p-10">
+          <div className="ask-premium-panel relative mt-4 overflow-hidden rounded-[28px] border border-white/10 bg-[var(--surface)]/92 p-5 sm:p-8 md:mt-6 md:p-10">
             <div className="ask-panel-grid pointer-events-none absolute inset-0 opacity-50" />
             <div className="ask-panel-orb pointer-events-none absolute -right-12 top-8 h-36 w-36 rounded-full" />
             <div className="ask-panel-orb ask-panel-orb-secondary pointer-events-none absolute -left-10 bottom-10 h-28 w-28 rounded-full" />
@@ -94,7 +94,7 @@ function AskAboutMe() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="ask-submit-btn h-fit rounded-full bg-[var(--accent)] px-7 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:bg-[var(--accent-dark)] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="ask-submit-btn h-fit rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:bg-[var(--accent-dark)] disabled:cursor-not-allowed disabled:opacity-50 sm:px-7"
                 >
                   {isLoading ? "Thinking..." : "Ask"}
                 </button>

@@ -65,7 +65,7 @@ export const LiveMemoji = () => {
             padding: 0,
           }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="relative"
+          className="relative mx-auto"
           style={{ transform: "translateZ(50px)" }}
         >
           <motion.div

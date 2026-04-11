@@ -40,10 +40,10 @@ function Navbar() {
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed inset-x-0 top-0 z-50 px-4 sm:px-6"
+      className="fixed inset-x-0 top-0 z-50 px-3 sm:px-6"
     >
       <nav
-        className={`relative mx-auto mt-4 flex w-full max-w-7xl items-center justify-between overflow-hidden rounded-full px-5 py-4 transition-all duration-500 ${
+        className={`relative mx-auto mt-3 flex w-full max-w-7xl items-center justify-between overflow-hidden rounded-full px-4 py-3.5 transition-all duration-500 sm:mt-4 sm:px-5 sm:py-4 ${
           isScrolled
             ? "premium-panel soft-ring"
             : "border-transparent bg-transparent"
@@ -83,7 +83,7 @@ function Navbar() {
               <img
                 src={profilePhoto}
                 alt="Samhith profile"
-                className="h-full w-full object-cover object-top"
+                className="h-full w-full scale-[1.14] object-cover object-top"
               />
             </span>
           </motion.span>
@@ -123,7 +123,7 @@ function Navbar() {
         </div>
 
         {mobileMenuOpen && (
-          <div className="absolute right-2 top-[calc(100%+0.7rem)] z-30 w-52 rounded-2xl border border-white/12 bg-[#081321]/95 p-3 shadow-[0_18px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl md:hidden">
+          <div className="absolute right-1 top-[calc(100%+0.6rem)] z-30 w-48 rounded-2xl border border-white/12 bg-[#081321]/95 p-3 shadow-[0_18px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl md:hidden sm:right-2 sm:w-52">
             <div className="space-y-1">
               {navLinks.map((link) => (
                 <button

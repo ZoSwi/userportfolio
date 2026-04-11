@@ -25,7 +25,10 @@ function PrinciplesSection() {
   const active = principles[activeIndex];
 
   return (
-    <section id="approach" className="deck-slide how-i-think-shell mx-auto max-w-7xl px-6 py-28 sm:px-10 lg:px-20">
+    <section
+      id="approach"
+      className="deck-slide how-i-think-shell mx-auto max-w-7xl px-6 py-20 sm:px-10 sm:py-28 lg:px-20"
+    >
       <div className="how-i-think-bg pointer-events-none absolute inset-0">
         <div className="how-i-think-grid absolute inset-0" />
         <div className="how-i-think-orb absolute -left-20 top-10 h-64 w-64 rounded-full" />
@@ -38,7 +41,7 @@ function PrinciplesSection() {
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--muted)]">
               How I Think
             </p>
-            <h2 className="mt-4 text-4xl font-semibold leading-tight tracking-[-0.03em] text-white md:text-5xl">
+            <h2 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.03em] text-white sm:text-4xl md:text-5xl">
               Principles that keep technical decisions grounded and maintainable.
             </h2>
             <p className="mt-5 max-w-3xl text-sm leading-relaxed text-[var(--text-secondary)]">
@@ -86,10 +89,10 @@ function PrinciplesSection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -18 }}
                 transition={{ duration: 0.34 }}
-                className="how-i-think-card group relative rounded-[22px] p-7"
+                className="how-i-think-card group relative rounded-[22px] p-5 sm:p-7"
               >
                 <div className="pointer-events-none absolute right-5 top-5">
-                  <span className="how-i-think-glyph">◎</span>
+                  <span className="how-i-think-glyph">o</span>
                 </div>
                 <div className="mb-4 flex items-center gap-3">
                   <span className="how-i-think-index">{String(activeIndex + 1).padStart(2, "0")}</span>

@@ -58,6 +58,10 @@ function ZoswiBotWidget() {
     return () => window.removeEventListener("zoswi:open", handleOpen);
   }, []);
 
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent("zoswi:state", { detail: { open } }));
+  }, [open]);
+
   const blockedIntent = (value) => {
     const q = value.toLowerCase();
     return [
@@ -131,7 +135,7 @@ function ZoswiBotWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 18, scale: 0.96 }}
             transition={{ duration: 0.24 }}
-            className="zoswi-widget zoswi-panel-size flex h-[min(78vh,620px)] w-[min(94vw,440px)] min-h-0 flex-col overflow-hidden rounded-2xl border border-white/12 bg-[#081426]/95"
+            className="zoswi-widget zoswi-panel-size flex h-[min(76vh,620px)] w-[min(94vw,440px)] min-h-0 flex-col overflow-hidden rounded-2xl border border-white/12 bg-[#081426]/95"
           >
             <div className="relative flex items-center justify-between border-b border-white/10 px-4 py-3">
               <div className="flex items-center gap-2.5">
