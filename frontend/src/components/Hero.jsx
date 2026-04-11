@@ -95,11 +95,11 @@ function Hero() {
               transition={{ duration: 0.9, delay: 0.18 }}
               className="max-w-4xl text-[clamp(1.85rem,4.9vw,3.2rem)] font-semibold leading-[1.03] tracking-[-0.032em] text-white xl:text-6xl 2xl:text-7xl"
             >
-              <span className="block w-fit max-w-full">
+              <span className="block w-fit max-w-full overflow-visible">
                 <span className="inline-flex max-w-full whitespace-normal bg-gradient-to-r from-white via-[var(--text)] to-[var(--accent-light)] bg-clip-text text-transparent md:hidden">
                   Application Architect &amp; Engineer
                 </span>
-                <span className="hidden max-w-full whitespace-nowrap bg-gradient-to-r from-white via-[var(--text)] to-[var(--accent-light)] bg-clip-text pr-[0.2em] text-transparent md:inline-flex sm:pr-[0.24em]">
+                <span className="hidden overflow-visible whitespace-nowrap bg-gradient-to-r from-white via-[var(--text)] to-[var(--accent-light)] bg-clip-text pr-[0.3em] text-transparent md:inline-block">
                   Application{"\u00A0"}Architect
                 </span>
               </span>
