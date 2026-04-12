@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export const VoiceIntro = ({ onComplete }) => {
   const startedRef = useRef(false);
@@ -6,7 +6,7 @@ export const VoiceIntro = ({ onComplete }) => {
   const speakingRef = useRef(false);
   const fallbackTimerRef = useRef(null);
   const startupCheckTimerRef = useRef(null);
-  const [needsTapPrompt, setNeedsTapPrompt] = useState(false);
+  const retryTimerRef = useRef(null);
 
   useEffect(() => {
     if (!("speechSynthesis" in window)) {
@@ -18,8 +18,8 @@ export const VoiceIntro = ({ onComplete }) => {
       if (finishedRef.current) return;
       finishedRef.current = true;
       speakingRef.current = false;
-      setNeedsTapPrompt(false);
       if (startupCheckTimerRef.current) window.clearTimeout(startupCheckTimerRef.current);
+      if (retryTimerRef.current) window.clearTimeout(retryTimerRef.current);
       onComplete();
     };
 
@@ -93,13 +93,9 @@ export const VoiceIntro = ({ onComplete }) => {
       }
 
       speakingRef.current = true;
-      if (source !== "auto") {
-        setNeedsTapPrompt(false);
-      }
 
       utterance.onstart = () => {
         startedRef.current = true;
-        setNeedsTapPrompt(false);
       };
       utterance.onend = () => {
         if (fallbackTimerRef.current) window.clearTimeout(fallbackTimerRef.current);
@@ -109,10 +105,7 @@ export const VoiceIntro = ({ onComplete }) => {
         speakingRef.current = false;
         if (fallbackTimerRef.current) window.clearTimeout(fallbackTimerRef.current);
         // On mobile, speech can be blocked without user activation.
-        // Keep listeners alive so next interaction can retry.
-        if (!startedRef.current && !finishedRef.current) {
-          setNeedsTapPrompt(true);
-        }
+        // Keep listeners alive so the next natural interaction retries.
       };
 
       // Prevent queue conflicts if another utterance exists.
@@ -124,7 +117,9 @@ export const VoiceIntro = ({ onComplete }) => {
       startupCheckTimerRef.current = window.setTimeout(() => {
         if (!startedRef.current && !finishedRef.current) {
           speakingRef.current = false;
-          setNeedsTapPrompt(true);
+          if (source === "auto" && attempt < 6) {
+            retryTimerRef.current = window.setTimeout(() => playVoiceIntro(attempt + 1, "auto"), 700);
+          }
         }
       }, 700);
 
@@ -142,6 +137,10 @@ export const VoiceIntro = ({ onComplete }) => {
       playVoiceIntro(0, "event");
     };
 
+    const handleVisibility = () => {
+      if (!document.hidden) playVoiceIntro(0, "event");
+    };
+
     // Try autoplay first.
     const autoStartTimer = window.setTimeout(playVoiceIntro, 250);
     window.speechSynthesis.onvoiceschanged = () => {
@@ -154,29 +153,26 @@ export const VoiceIntro = ({ onComplete }) => {
     window.addEventListener("pointerdown", handleFirstInteraction);
     window.addEventListener("touchstart", handleFirstInteraction);
     window.addEventListener("click", handleFirstInteraction);
+    window.addEventListener("scroll", handleFirstInteraction, { passive: true });
     window.addEventListener("keydown", handleFirstInteraction);
+    window.addEventListener("visibilitychange", handleVisibility);
     window.addEventListener("zoswi:play-voice", handleExplicitPlay);
 
     return () => {
       window.clearTimeout(autoStartTimer);
       if (fallbackTimerRef.current) window.clearTimeout(fallbackTimerRef.current);
       if (startupCheckTimerRef.current) window.clearTimeout(startupCheckTimerRef.current);
+      if (retryTimerRef.current) window.clearTimeout(retryTimerRef.current);
       window.removeEventListener("pointerdown", handleFirstInteraction);
       window.removeEventListener("touchstart", handleFirstInteraction);
       window.removeEventListener("click", handleFirstInteraction);
+      window.removeEventListener("scroll", handleFirstInteraction);
       window.removeEventListener("keydown", handleFirstInteraction);
+      window.removeEventListener("visibilitychange", handleVisibility);
       window.removeEventListener("zoswi:play-voice", handleExplicitPlay);
       window.speechSynthesis.onvoiceschanged = null;
     };
   }, [onComplete]);
 
-  return needsTapPrompt ? (
-    <button
-      type="button"
-      onClick={() => window.dispatchEvent(new CustomEvent("zoswi:play-voice"))}
-      className="fixed bottom-4 left-1/2 z-[120] -translate-x-1/2 rounded-full border border-[#7cbcf0]/40 bg-[#10263d]/92 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#d7ecff] shadow-[0_12px_30px_rgba(4,14,25,0.35)]"
-    >
-      Tap to Start ZoSwi Voice
-    </button>
-  ) : null;
+  return null;
 };
