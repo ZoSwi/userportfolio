@@ -22,6 +22,8 @@ public class AskService {
     private static final Pattern PHONE_PATTERN = Pattern.compile("(?<!\\d)(?:\\+?1[\\s\\-.]?)?(?:\\(\\d{3}\\)|\\d{3})[\\s\\-.]?\\d{3}[\\s\\-.]?\\d{3,4}(?!\\d)");
     private static final Pattern ADDRESS_PATTERN = Pattern.compile("(?im)^\\s*\\d{2,6}\\s+[A-Za-z0-9.#'\\- ]{3,}\\s(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Drive|Dr|Lane|Ln|Court|Ct|Way)\\b[^\\n]*$");
     private static final Pattern FULL_NAME_PATTERN = Pattern.compile("(?i)\\b(?:samhith(?:\\s+reddy)?\\s+cheruku|cheruku,\\s*samhith(?:\\s+reddy)?)\\b");
+    private static final Pattern SURNAME_PATTERN = Pattern.compile("(?i)\\bcheruku\\b");
+    private static final Pattern HANDLE_PATTERN = Pattern.compile("(?i)\\bsamhithc1\\b");
 
     private final ResumeParserService resumeParserService;
     private final ResumeKnowledgeBaseService knowledgeBaseService;
@@ -106,6 +108,8 @@ public class AskService {
         sanitized = PHONE_PATTERN.matcher(sanitized).replaceAll("[REDACTED_PHONE]");
         sanitized = ADDRESS_PATTERN.matcher(sanitized).replaceAll("[REDACTED_ADDRESS]");
         sanitized = FULL_NAME_PATTERN.matcher(sanitized).replaceAll("Samhith");
+        sanitized = SURNAME_PATTERN.matcher(sanitized).replaceAll("Samhith");
+        sanitized = HANDLE_PATTERN.matcher(sanitized).replaceAll("[REDACTED_ID]");
         return sanitized;
     }
 
@@ -142,7 +146,9 @@ public class AskService {
         return EMAIL_PATTERN.matcher(text).find()
                 || PHONE_PATTERN.matcher(text).find()
                 || ADDRESS_PATTERN.matcher(text).find()
-                || FULL_NAME_PATTERN.matcher(text).find();
+                || FULL_NAME_PATTERN.matcher(text).find()
+                || SURNAME_PATTERN.matcher(text).find()
+                || HANDLE_PATTERN.matcher(text).find();
     }
 
     private boolean containsAny(String text, String... terms) {

@@ -33,8 +33,20 @@ function ZoswiBotWidget() {
     },
   ]);
 
+  const sanitizeAssistantOutput = (value) => {
+    if (!value) return value;
+    let safe = value;
+    safe = safe.replace(/\b[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}\b/gi, "[REDACTED_EMAIL]");
+    safe = safe.replace(/(?<!\d)(?:\+?1[\s\-.]?)?(?:\(\d{3}\)|\d{3})[\s\-.]?\d{3}[\s\-.]?\d{3,4}(?!\d)/g, "[REDACTED_PHONE]");
+    safe = safe.replace(/\b(?:samhith(?:\s+reddy)?\s+cheruku|cheruku,\s*samhith(?:\s+reddy)?)\b/gi, "Samhith");
+    safe = safe.replace(/\bcheruku\b/gi, "Samhith");
+    safe = safe.replace(/\bsamhithc1\b/gi, "[REDACTED_ID]");
+    return safe;
+  };
+
   const appendMessage = (role, value, ctaHref = null, ctaLabel = null) => {
-    setMessages((prev) => [...prev, { role, text: value, ctaHref, ctaLabel }]);
+    const textValue = role === "assistant" ? sanitizeAssistantOutput(value) : value;
+    setMessages((prev) => [...prev, { role, text: textValue, ctaHref, ctaLabel }]);
   };
 
   useEffect(() => {
