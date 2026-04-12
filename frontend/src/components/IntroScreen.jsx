@@ -14,6 +14,7 @@ export const IntroScreen = ({ onComplete }) => {
       setHasVisited(true);
       setShowIntro(false);
       onComplete();
+      window.dispatchEvent(new CustomEvent("zoswi:play-voice"));
       window.dispatchEvent(new CustomEvent("zoswi:intro-complete"));
       return;
     }

@@ -4,7 +4,7 @@ import Reveal from "./Reveal";
 
 function ExperienceSection() {
   return (
-    <section id="experience" className="deck-slide mx-auto max-w-7xl px-6 py-20 sm:px-10 sm:py-28 lg:px-20">
+    <section id="experience" className="deck-slide section-shell mx-auto max-w-7xl px-6 sm:px-10 lg:px-20">
       <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr]">
         <Reveal>
           <div className="space-y-6">
@@ -19,7 +19,7 @@ function ExperienceSection() {
               {capabilities.map((capability) => (
                 <div
                   key={capability.title}
-                  className="premium-panel soft-ring rounded-2xl p-5"
+                  className="premium-panel soft-ring ui-card ui-hover-lift rounded-2xl p-5"
                 >
                   <p className="text-sm font-semibold text-white">{capability.title}</p>
                   <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">
@@ -37,7 +37,7 @@ function ExperienceSection() {
               <motion.article
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.3 }}
-                className="premium-panel soft-ring relative rounded-[28px] p-6 sm:p-8"
+                className="premium-panel soft-ring ui-card ui-hover-lift relative rounded-[28px] p-6 sm:p-8"
               >
                 <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-[var(--accent)] via-[var(--accent-light)] to-transparent" />
                 <div className="space-y-5">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import About from "./components/About";
 import AskAboutMe from "./components/AskAboutMe";
 import ContactSection from "./components/ContactSection";
@@ -15,12 +15,20 @@ import { VoiceIntro } from "./components/VoiceIntro";
 import WorkCards from "./components/WorkCards";
 import { SmoothScroll } from "./components/SmoothScroll";
 import { AnimatedTechStack } from "./components/AnimatedTechStack";
-import { FadeInSection, ScrollSection } from "./components/ScrollSection";
+import { PageSlideSection } from "./components/PageSlideSection";
 import ZoswiBotWidget from "./components/ZoswiBotWidget";
 
 function App() {
   const [introComplete, setIntroComplete] = useState(false);
   const [voiceComplete, setVoiceComplete] = useState(false);
+
+  useEffect(() => {
+    if (!introComplete) return;
+    const timer = window.setTimeout(() => {
+      window.dispatchEvent(new CustomEvent("zoswi:play-voice"));
+    }, 180);
+    return () => window.clearTimeout(timer);
+  }, [introComplete]);
 
   return (
     <>
@@ -39,38 +47,36 @@ function App() {
               <Navbar />
               <FloatingConnectDock />
               <ZoswiBotWidget />
-              <main>
-                <Hero />
+              <main className="page-snap-root">
+                <PageSlideSection>
+                  <Hero />
+                </PageSlideSection>
 
-                <FadeInSection>
-                  <HighlightStrip />
-                </FadeInSection>
+                <HighlightStrip />
 
-                <ScrollSection>
+                <PageSlideSection delay={0.03}>
                   <About />
-                </ScrollSection>
+                </PageSlideSection>
 
-                <ScrollSection>
+                <PageSlideSection delay={0.03}>
                   <WorkCards />
-                </ScrollSection>
+                </PageSlideSection>
 
-                <FadeInSection>
+                <PageSlideSection delay={0.03}>
                   <ExperienceSection />
-                </FadeInSection>
+                </PageSlideSection>
 
                 <AnimatedTechStack />
 
-                <ScrollSection>
+                <PageSlideSection delay={0.03}>
                   <PrinciplesSection />
-                </ScrollSection>
+                </PageSlideSection>
 
-                <FadeInSection>
+                <PageSlideSection delay={0.02}>
                   <AskAboutMe />
-                </FadeInSection>
+                </PageSlideSection>
 
-                <FadeInSection>
-                  <ContactSection />
-                </FadeInSection>
+                <ContactSection />
               </main>
               <Footer />
             </div>

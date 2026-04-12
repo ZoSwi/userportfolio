@@ -8,14 +8,17 @@ export const ScrollSection = ({ children, className = '' }) => {
     offset: ['start end', 'end start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.8]);
+  const y = useTransform(scrollYProgress, [0, 1], [20, -20]);
+  const opacity = useTransform(scrollYProgress, [0, 0.18, 1], [0, 1, 1]);
 
   return (
     <motion.div
       ref={ref}
-      style={{ y, opacity, scale }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.22 }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      style={{ y, opacity }}
       className={className}
     >
       {children}
@@ -42,11 +45,11 @@ export const ParallaxSection = ({ children, speed = 0.5, className = '' }) => {
 export const FadeInSection = ({ children, delay = 0, className = '' }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 52, scale: 0.985, filter: 'blur(8px)' }}
-      whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{
-        duration: 1.05,
+        duration: 0.6,
         delay,
         ease: [0.22, 1, 0.36, 1],
       }}

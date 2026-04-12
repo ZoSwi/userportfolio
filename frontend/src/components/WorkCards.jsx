@@ -4,7 +4,7 @@ import { projects } from "../data/portfolioData";
 
 function WorkCards() {
   return (
-    <section id="work" className="deck-slide mx-auto max-w-7xl px-6 py-20 sm:px-10 sm:py-28 lg:px-20">
+    <section id="work" className="deck-slide section-shell mx-auto max-w-7xl px-6 sm:px-10 lg:px-20">
       <div className="space-y-14">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -31,7 +31,7 @@ function WorkCards() {
               transition={{ duration: 0.75, delay: index * 0.1 }}
             >
               <Tilt tiltMaxAngleX={7} tiltMaxAngleY={7} perspective={1100} scale={1.01} transitionSpeed={1800}>
-                <article className="case-card soft-ring group h-full rounded-[30px] p-6 sm:p-8">
+                <article className="case-card soft-ring ui-hover-lift group h-full rounded-[30px] p-6 sm:p-8">
                   <div className="absolute inset-0 rounded-[30px] bg-gradient-to-br from-[var(--accent)]/10 via-transparent to-[#1d4ed8]/8 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                   <div className="absolute inset-x-8 top-0 h-20 rounded-b-[2rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.12),transparent)] opacity-40" />
                   <div className="relative z-10 flex h-full flex-col">

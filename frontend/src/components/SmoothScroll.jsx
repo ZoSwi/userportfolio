@@ -3,18 +3,19 @@ import Lenis from 'lenis';
 
 export const SmoothScroll = ({ children }) => {
   useEffect(() => {
-    const isCoarsePointer = window.matchMedia("(hover: none), (pointer: coarse)").matches;
-    if (isCoarsePointer) return undefined;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return undefined;
 
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.25,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
+      wheelMultiplier: 0.9,
+      smoothTouch: true,
+      syncTouch: true,
+      touchMultiplier: 1.05,
       infinite: false,
     });
 

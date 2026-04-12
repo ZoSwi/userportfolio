@@ -41,7 +41,7 @@ public class AskRateLimitFilter extends OncePerRequestFilter {
             return true;
         }
         String uri = request.getRequestURI();
-        return !"/api/ask".equals(uri) && !"/api/contact/send".equals(uri);
+        return !"/api/ask".equals(uri) && !"/api/contact/send".equals(uri) && !"/api/contact/draft".equals(uri);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class AskRateLimitFilter extends OncePerRequestFilter {
     }
 
     private int resolveLimit(String uri) {
-        if ("/api/contact/send".equals(uri)) {
+        if ("/api/contact/send".equals(uri) || "/api/contact/draft".equals(uri)) {
             return maxContactRequestsPerMinute;
         }
         return maxAskRequestsPerMinute;

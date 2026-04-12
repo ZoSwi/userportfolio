@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaGithub, FaLinkedin, FaPaperPlane } from "react-icons/fa6";
+import { FaGithub, FaLinkedin, FaPaperPlane, FaWandMagicSparkles } from "react-icons/fa6";
 import { contactLinks } from "../data/portfolioData";
 import Reveal from "./Reveal";
 import zoswiNeuralRaw from "../assets/zoswi-neural-raw.png";
@@ -12,6 +12,7 @@ function ContactSection() {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
+  const [isDrafting, setIsDrafting] = useState(false);
   const [statusText, setStatusText] = useState("");
   const [statusType, setStatusType] = useState("idle");
   const [aiIconSrc, setAiIconSrc] = useState(zoswiNeuralRaw);
@@ -69,8 +70,52 @@ function ContactSection() {
     }
   };
 
+  const handleDraft = async () => {
+    if (!message.trim()) {
+      setStatusType("error");
+      setStatusText("Type your intent in Message, then use Write with ZoSwi.");
+      return;
+    }
+
+    setIsDrafting(true);
+    setStatusType("idle");
+    setStatusText("");
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/contact/draft`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: message.trim(),
+          email: email.trim() || undefined,
+        }),
+      });
+
+      if (!response.ok) {
+        let apiMessage = "Unable to draft right now.";
+        try {
+          const errorData = await response.json();
+          if (errorData?.message) apiMessage = errorData.message;
+        } catch {
+          // keep default
+        }
+        throw new Error(apiMessage);
+      }
+
+      const data = await response.json();
+      setTitle(data.title || "");
+      setMessage(data.message || "");
+      setStatusType("success");
+      setStatusText("ZoSwi prepared a professional draft. Review and send.");
+    } catch (error) {
+      setStatusType("error");
+      setStatusText(error.message || "Unable to draft right now.");
+    } finally {
+      setIsDrafting(false);
+    }
+  };
+
   return (
-    <section id="contact" className="mx-auto max-w-7xl px-6 pb-16 pt-20 sm:px-10 sm:pb-20 sm:pt-28 lg:px-20">
+    <section id="contact" className="mx-auto max-w-7xl px-6 pb-12 pt-6 sm:px-10 sm:pb-16 sm:pt-10 lg:px-20">
       <Reveal>
         <div className="contact-premium-shell group relative overflow-hidden rounded-[32px] border border-white/10 bg-[var(--surface)] p-6 sm:p-10 md:p-14">
           <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-[var(--accent)]/10 blur-3xl" />
@@ -90,7 +135,7 @@ function ContactSection() {
               </p>
             </div>
 
-            <div className="contact-link-card rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+            <div className="contact-link-card ui-card ui-hover-lift rounded-2xl border border-white/10 bg-white/[0.03] p-5">
               <form onSubmit={handleSend} className="space-y-3">
                 <input
                   type="email"
@@ -110,12 +155,25 @@ function ContactSection() {
                 />
                 <textarea
                   required
-                  rows={4}
+                  rows={5}
                   value={message}
                   onChange={(event) => setMessage(event.target.value)}
-                  placeholder="Message"
+                  placeholder="Message (you can write rough points; ZoSwi can rewrite professionally)"
                   className="w-full resize-none rounded-xl border border-white/12 bg-[#0b1827]/70 px-4 py-3 text-sm text-white outline-none placeholder:text-[var(--muted)] focus:border-[var(--accent-light)]/45"
                 />
+                {message.trim().length > 0 && (
+                  <div className="-mt-1 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={handleDraft}
+                      disabled={isDrafting}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-[var(--accent-light)]/35 bg-[var(--accent-light)]/16 px-3 py-1.5 text-xs font-semibold text-[#d9ecff] transition-colors duration-300 hover:bg-[var(--accent-light)]/24 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      <FaWandMagicSparkles className="text-[11px]" />
+                      {isDrafting ? "ZoSwi is writing..." : "Write with ZoSwi"}
+                    </button>
+                  </div>
+                )}
                 <div className="flex items-center justify-between gap-3">
                   <p
                     className={`text-xs ${

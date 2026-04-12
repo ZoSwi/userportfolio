@@ -64,7 +64,7 @@ function About() {
   ];
 
   return (
-    <section id="about" className="deck-slide mx-auto max-w-7xl px-6 py-24 sm:px-10 sm:py-32 lg:px-20">
+    <section id="about" className="deck-slide section-shell mx-auto max-w-7xl px-6 sm:px-10 lg:px-20">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="about-grid-lines absolute inset-0 opacity-60" />
         <div className="about-diagonal-lines absolute inset-0 opacity-45" />
@@ -82,7 +82,7 @@ function About() {
               Building modern enterprise platforms with architecture depth and execution discipline.
             </h2>
 
-            <div className="premium-panel soft-ring relative mt-8 rounded-[1.75rem] p-6">
+            <div className="premium-panel soft-ring ui-card ui-hover-lift relative mt-8 rounded-[1.75rem] p-6">
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--muted)]">
                 Engineering Lens
               </p>
@@ -91,7 +91,7 @@ function About() {
               </p>
             </div>
 
-            <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#0a1626]/80 p-5">
+            <div className="ui-card ui-hover-lift relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#0a1626]/80 p-5">
               <div className="mb-4 flex items-center justify-between">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--muted)]">
                   Technical Runtime
@@ -162,7 +162,7 @@ function About() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="premium-panel soft-ring about-feature-panel relative space-y-8 rounded-[2rem] p-9 md:p-12 lg:mt-8">
+          <div className="premium-panel soft-ring ui-card ui-hover-lift about-feature-panel relative space-y-8 rounded-[2rem] p-9 md:p-12 lg:mt-8">
             <div className="absolute right-8 top-8 h-24 w-24 rounded-full bg-[radial-gradient(circle,_rgba(52,211,153,0.22),_transparent_65%)] blur-2xl" />
             <div className="about-identity flex items-center gap-4 border-b border-white/10 pb-5">
               <div className="about-avatar-wrap soft-ring">
