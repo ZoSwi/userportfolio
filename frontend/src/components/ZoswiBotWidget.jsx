@@ -157,6 +157,8 @@ function ZoswiBotWidget() {
             <div
               ref={chatWindowRef}
               data-lenis-prevent
+              onWheelCapture={(event) => event.stopPropagation()}
+              onTouchMoveCapture={(event) => event.stopPropagation()}
               className="zoswi-chat-window min-h-0 flex-1 space-y-3.5 overflow-y-auto px-4 py-3 sm:px-5"
             >
               {messages.map((item, index) => {
