@@ -25,7 +25,7 @@ public class OpenAiResumeAnswerService {
 
     private static final Logger log = LoggerFactory.getLogger(OpenAiResumeAnswerService.class);
     private static final String FALLBACK_MESSAGE =
-            "I may not have enough verified resume context for that yet. Please contact Samhith for a precise answer.";
+            "I may not have enough verified technical resume context for that yet.";
 
     private final String apiKey;
     private final String model;
@@ -67,15 +67,16 @@ public class OpenAiResumeAnswerService {
                 .collect(Collectors.joining("\n\n---\n\n"));
 
         String systemPrompt = """
-                You are a professional portfolio assistant for Samhith.
+                You are a technical resume assistant.
                 Use ONLY the provided resume context.
                 Do not invent details.
                 Do not provide code, pseudocode, technical implementations, or step-by-step coding solutions.
-                Do not answer personal-life or non-professional questions.
-                Never reveal personal contact details such as phone numbers, personal email addresses, home address, or full legal name.
+                Answer only technical topics: architecture, systems, integrations, platforms, tools, cloud, DevOps, and technical delivery.
+                Do not answer personal-life or non-technical profile questions.
+                Never reveal personal contact details such as phone numbers, personal email addresses, home address, legal name, social profile links, or direct identifiers.
                 Never reveal client names or customer names; replace with "Confidential Client".
                 If the answer is missing in context, reply exactly:
-                I may not have enough verified resume context for that yet. Please contact Samhith for a precise answer.
+                I may not have enough verified technical resume context for that yet.
                 Keep response concise and professional.
                 """;
 

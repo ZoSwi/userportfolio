@@ -8,9 +8,9 @@ import { buildTransparentNeuralIcon } from "../utils/buildTransparentNeuralIcon"
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080";
 
 const quickPrompts = [
-  "Summarize Samhith's architecture experience",
-  "What backend systems has Samhith built?",
-  "What is Samhith's integration expertise?",
+  "Summarize the architecture experience",
+  "What backend systems were built?",
+  "What integration expertise is listed?",
 ];
 
 const quickLinks = [
@@ -29,7 +29,7 @@ function ZoswiBotWidget() {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      text: "I'm ZoSwi AI, built by Samhith. Ask me about his work, projects, architecture, and professional experience.",
+      text: "I'm ZoSwi AI. Ask me about technical resume topics like architecture, systems, integrations, tools, and delivery.",
     },
   ]);
 
@@ -103,7 +103,7 @@ function ZoswiBotWidget() {
     if (blockedIntent(value)) {
       appendMessage(
         "assistant",
-        "I can help with Samhith's professional work and portfolio topics. I do not provide personal details. Please use the contact page for outreach.",
+        "I can only help with technical resume topics. Personal details are not available. Please use the contact page for outreach.",
         "#contact",
         "Go to Contact page"
       );

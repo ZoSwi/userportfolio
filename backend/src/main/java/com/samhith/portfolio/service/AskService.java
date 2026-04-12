@@ -40,7 +40,7 @@ public class AskService {
     public AskResponse answerQuestion(String question) {
         if (!knowledgeBaseService.hasIndexedResume()) {
             return new AskResponse(
-                    "Resume data is not available yet. Please contact Samhith to enable resume-based responses.",
+                    "Resume data is not available yet. Please use the contact page to enable resume-based responses.",
                     List.of("Resume Status"),
                     Instant.now()
             );
@@ -48,7 +48,7 @@ public class AskService {
 
         if (isBlockedIntent(question)) {
             return new AskResponse(
-                    "I can help best with Samhith's professional background, architecture work, projects, and delivery experience. For privacy and safety, I do not handle personal topics or coding requests.",
+                    "I can only answer technical resume topics such as architecture, integrations, systems, tools, and project delivery. Personal details are not available.",
                     List.of("Policy Guardrail"),
                     Instant.now()
             );
@@ -64,7 +64,7 @@ public class AskService {
 
         if (lowConfidence) {
             return new AskResponse(
-                    "I may not have enough verified resume context for that yet. Please contact Samhith for a precise answer.",
+                    "I may not have enough verified technical resume context for that yet.",
                     List.of("No matching section"),
                     Instant.now()
             );
@@ -126,7 +126,7 @@ public class AskService {
                 "phone number", "phone", "mobile", "cell number",
                 "full name", "legal name", "last name", "surname",
                 "email address", "contact details", "contact info",
-                "salary expectation", "date of birth", "dob"
+                "salary expectation", "date of birth", "dob", "linkedin", "github", "instagram", "twitter"
         );
     }
 

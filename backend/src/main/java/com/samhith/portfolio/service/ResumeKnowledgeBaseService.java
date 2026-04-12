@@ -109,6 +109,7 @@ public class ResumeKnowledgeBaseService {
         }
 
         List<IndexedChunk> prioritized = resume.chunks().stream()
+                .filter(chunk -> isTechnicalChunk(chunk.section(), chunk.text()))
                 .sorted(Comparator.comparingInt(chunk -> sectionPriority(chunk.section())))
                 .limit(Math.max(1, limit))
                 .toList();
@@ -128,6 +129,7 @@ public class ResumeKnowledgeBaseService {
         }
 
         List<ScoredChunk> scored = resume.chunks().stream()
+                .filter(chunk -> isTechnicalChunk(chunk.section(), chunk.text()))
                 .map(chunk -> new ScoredChunk(chunk, similarity(queryTf, queryNorm, chunk, question)))
                 .sorted(Comparator.comparingDouble(ScoredChunk::score).reversed())
                 .limit(Math.max(1, limit))
@@ -344,6 +346,34 @@ public class ResumeKnowledgeBaseService {
             return 3;
         }
         return 4;
+    }
+
+    private boolean isTechnicalChunk(String section, String text) {
+        String normalizedSection = section == null ? "" : section.toLowerCase(Locale.ROOT);
+        String normalizedText = text == null ? "" : text.toLowerCase(Locale.ROOT);
+
+        if (normalizedSection.contains("contact")) {
+            return false;
+        }
+
+        return normalizedSection.contains("experience")
+                || normalizedSection.contains("work")
+                || normalizedSection.contains("projects")
+                || normalizedSection.contains("skills")
+                || normalizedSection.contains("certification")
+                || containsAny(normalizedText,
+                "java", "spring", "react", "api", "microservice", "cloud", "aws", "azure",
+                "docker", "kubernetes", "integration", "architecture", "backend", "frontend",
+                "ci/cd", "jenkins", "github actions", "kafka", "redis", "sql", "postgres", "mulesoft");
+    }
+
+    private boolean containsAny(String text, String... terms) {
+        for (String term : terms) {
+            if (text.contains(term)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private String sanitizeClientReferences(String text) {
