@@ -74,6 +74,9 @@ public class AskService {
         String answer = openAiResumeAnswerService.generateAnswer(question, chunksForAnswer)
                 .map(this::sanitizeClientPrivacy)
                 .orElseGet(() -> sanitizeClientPrivacy(knowledgeBaseService.buildAnswer(question, chunksForAnswer)));
+        if (containsSensitivePayload(answer)) {
+            answer = "I can only answer technical resume topics such as architecture, integrations, systems, tools, and project delivery. Personal details are not available.";
+        }
         List<String> sources = knowledgeBaseService.sourceSections(chunksForAnswer);
         return new AskResponse(answer, sources, Instant.now());
     }
@@ -126,8 +129,20 @@ public class AskService {
                 "phone number", "phone", "mobile", "cell number",
                 "full name", "legal name", "last name", "surname",
                 "email address", "contact details", "contact info",
-                "salary expectation", "date of birth", "dob", "linkedin", "github", "instagram", "twitter"
+                "salary expectation", "date of birth", "dob", "linkedin", "github", "instagram", "twitter",
+                "contact", "reach out", "reach him", "reach her", "reach them", "get in touch",
+                "share contact", "how to contact", "call him", "email him", "mail id"
         );
+    }
+
+    private boolean containsSensitivePayload(String text) {
+        if (text == null || text.isBlank()) {
+            return false;
+        }
+        return EMAIL_PATTERN.matcher(text).find()
+                || PHONE_PATTERN.matcher(text).find()
+                || ADDRESS_PATTERN.matcher(text).find()
+                || FULL_NAME_PATTERN.matcher(text).find();
     }
 
     private boolean containsAny(String text, String... terms) {

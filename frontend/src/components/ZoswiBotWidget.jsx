@@ -90,6 +90,14 @@ function ZoswiBotWidget() {
       "contact info",
       "date of birth",
       "dob",
+      "contact",
+      "reach out",
+      "get in touch",
+      "share contact",
+      "how to contact",
+      "call",
+      "email",
+      "mail id",
     ].some((term) => q.includes(term));
   };
 
