@@ -538,6 +538,26 @@ h4 {
     0 8px 18px rgba(3, 11, 21, 0.16);
 }
 
+.contact-message-scroll {
+  scrollbar-width: auto;
+  scrollbar-color: rgba(126, 180, 228, 0.85) rgba(255, 255, 255, 0.08);
+}
+
+.contact-message-scroll::-webkit-scrollbar {
+  width: 11px;
+}
+
+.contact-message-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+}
+
+.contact-message-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(116, 197, 245, 0.95), rgba(77, 150, 232, 0.95));
+  border-radius: 9999px;
+  border: 2px solid rgba(11, 24, 39, 0.72);
+}
+
 .zoswi-trigger {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
