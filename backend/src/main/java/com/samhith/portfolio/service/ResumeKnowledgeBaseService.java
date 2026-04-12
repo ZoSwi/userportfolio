@@ -38,9 +38,9 @@ public class ResumeKnowledgeBaseService {
             "\\b[A-Z][A-Za-z0-9&.,'/-]*(?:\\s+[A-Z][A-Za-z0-9&.,'/-]*){0,4}\\s(?:Inc|LLC|Ltd|Corp|Corporation|Company|Technologies|Technology|Systems|Services|Bank|Healthcare|Hospital|University)\\b"
     );
     private static final Pattern EMAIL_PATTERN = Pattern.compile("(?i)\\b[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}\\b");
-    private static final Pattern PHONE_PATTERN = Pattern.compile("(?<!\\d)(?:\\+?1[\\s\\-.]?)?(?:\\(\\d{3}\\)|\\d{3})[\\s\\-.]?\\d{3}[\\s\\-.]?\\d{4}(?!\\d)");
+    private static final Pattern PHONE_PATTERN = Pattern.compile("(?<!\\d)(?:\\+?1[\\s\\-.]?)?(?:\\(\\d{3}\\)|\\d{3})[\\s\\-.]?\\d{3}[\\s\\-.]?\\d{3,4}(?!\\d)");
     private static final Pattern ADDRESS_PATTERN = Pattern.compile("(?im)^\\s*\\d{2,6}\\s+[A-Za-z0-9.#'\\- ]{3,}\\s(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Drive|Dr|Lane|Ln|Court|Ct|Way)\\b[^\\n]*$");
-    private static final Pattern FULL_NAME_PATTERN = Pattern.compile("(?i)\\bSamhith\\s+Cheruku\\b");
+    private static final Pattern FULL_NAME_PATTERN = Pattern.compile("(?i)\\b(?:samhith(?:\\s+reddy)?\\s+cheruku|cheruku,\\s*samhith(?:\\s+reddy)?)\\b");
     private static final Set<String> STOP_WORDS = new HashSet<>(List.of(
             "a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "has", "have", "he", "her", "his",
             "i", "in", "is", "it", "its", "of", "on", "or", "that", "the", "their", "them", "they", "this", "to",
