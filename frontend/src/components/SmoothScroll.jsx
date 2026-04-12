@@ -16,6 +16,13 @@ export const SmoothScroll = ({ children }) => {
       smoothTouch: true,
       syncTouch: true,
       touchMultiplier: 1.05,
+      allowNestedScroll: true,
+      prevent: (node) =>
+        Boolean(
+          node?.closest?.(
+            "textarea, [data-lenis-prevent], .zoswi-chat-window, .zoswi-chip-row, .contact-message-scroll"
+          )
+        ),
       infinite: false,
     });
 

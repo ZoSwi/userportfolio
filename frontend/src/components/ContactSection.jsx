@@ -156,10 +156,12 @@ function ContactSection() {
                 <textarea
                   required
                   rows={5}
+                  data-lenis-prevent
                   value={message}
                   onChange={(event) => setMessage(event.target.value)}
+                  onWheelCapture={(event) => event.stopPropagation()}
                   placeholder="Message (you can write rough points; ZoSwi can rewrite professionally)"
-                  className="w-full resize-none rounded-xl border border-white/12 bg-[#0b1827]/70 px-4 py-3 text-sm text-white outline-none placeholder:text-[var(--muted)] focus:border-[var(--accent-light)]/45"
+                  className="contact-message-scroll w-full resize-none overflow-y-auto rounded-xl border border-white/12 bg-[#0b1827]/70 px-4 py-3 text-sm text-white outline-none placeholder:text-[var(--muted)] focus:border-[var(--accent-light)]/45"
                 />
                 {message.trim().length > 0 && (
                   <div className="-mt-1 flex justify-end">
