@@ -113,7 +113,7 @@ public class OpenAiResumeAnswerService {
                 return Optional.of(FALLBACK_MESSAGE);
             }
             return Optional.of(content);
-        } catch (IOException | InterruptedException ex) {
+        } catch (IOException | InterruptedException | RuntimeException ex) {
             String msg = "ZoSwi AI resume answer request failed: " + ex.getMessage();
             lastError = msg;
             log.warn(msg);

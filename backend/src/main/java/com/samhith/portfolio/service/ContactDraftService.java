@@ -3,6 +3,8 @@ package com.samhith.portfolio.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.samhith.portfolio.model.ContactDraftResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ import java.util.Map;
 
 @Service
 public class ContactDraftService {
+
+    private static final Logger log = LoggerFactory.getLogger(ContactDraftService.class);
 
     private final String apiKey;
     private final String model;
@@ -109,7 +113,8 @@ public class ContactDraftService {
             } catch (Exception ignored) {
                 return fallbackDraft(cleanPrompt);
             }
-        } catch (IOException | InterruptedException ex) {
+        } catch (IOException | InterruptedException | RuntimeException ex) {
+            log.warn("Contact draft generation failed, using fallback: {}", ex.getMessage());
             if (ex instanceof InterruptedException) {
                 Thread.currentThread().interrupt();
             }

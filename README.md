@@ -181,6 +181,50 @@ cd backend
 mvn clean package
 ```
 
+## Production Readiness (Cloud Run)
+
+Use this if you want stable daily uptime and faster first response times.
+
+1. Keep at least one backend instance warm:
+
+```bash
+gcloud run services update portfolio-backend \
+  --region us-central1 \
+  --min-instances 1
+```
+
+2. Configure backend env vars (including ZoSwi AI + admin key):
+
+```bash
+gcloud run services update portfolio-backend \
+  --region us-central1 \
+  --update-env-vars RESUME_ASSISTANT_ADMIN_KEY=your_strong_key,ZOSWI_AI_KEY=your_zoswi_key,ZOSWI_AI_MODEL=gpt-4.1-mini,ZOSWI_AI_BASE_URL=https://api.openai.com
+```
+
+3. Verify service is up:
+
+```bash
+curl https://YOUR_BACKEND_URL/api/health
+```
+
+4. Optional: add a scheduler warm ping every 5 minutes:
+
+```bash
+gcloud scheduler jobs create http portfolio-backend-health-ping \
+  --location us-central1 \
+  --schedule "*/5 * * * *" \
+  --uri "https://YOUR_BACKEND_URL/api/health" \
+  --http-method GET
+```
+
+5. Add frontend origin for CORS:
+
+```bash
+gcloud run services update portfolio-backend \
+  --region us-central1 \
+  --update-env-vars RESUME_ASSISTANT_CORS_ALLOWED_ORIGINS=https://YOUR_FRONTEND_DOMAIN
+```
+
 ## Customization
 
 - Update resume/link URLs in `frontend/src/data/portfolioData.js`
