@@ -75,8 +75,21 @@ function ZoswiBotWidget() {
       "wife",
       "husband",
       "address",
+      "home address",
+      "where does he live",
       "phone number",
+      "phone",
+      "mobile",
+      "cell number",
+      "full name",
+      "legal name",
+      "last name",
+      "surname",
+      "email address",
+      "contact details",
+      "contact info",
       "date of birth",
+      "dob",
     ].some((term) => q.includes(term));
   };
 
@@ -90,7 +103,7 @@ function ZoswiBotWidget() {
     if (blockedIntent(value)) {
       appendMessage(
         "assistant",
-        "I can help with Samhith's professional work and portfolio topics. For personal details, please use the contact page.",
+        "I can help with Samhith's professional work and portfolio topics. I do not provide personal details. Please use the contact page for outreach.",
         "#contact",
         "Go to Contact page"
       );

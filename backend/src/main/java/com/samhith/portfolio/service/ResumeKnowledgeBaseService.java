@@ -37,6 +37,10 @@ public class ResumeKnowledgeBaseService {
     private static final Pattern ORG_SUFFIX_PATTERN = Pattern.compile(
             "\\b[A-Z][A-Za-z0-9&.,'/-]*(?:\\s+[A-Z][A-Za-z0-9&.,'/-]*){0,4}\\s(?:Inc|LLC|Ltd|Corp|Corporation|Company|Technologies|Technology|Systems|Services|Bank|Healthcare|Hospital|University)\\b"
     );
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("(?i)\\b[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}\\b");
+    private static final Pattern PHONE_PATTERN = Pattern.compile("(?<!\\d)(?:\\+?1[\\s\\-.]?)?(?:\\(\\d{3}\\)|\\d{3})[\\s\\-.]?\\d{3}[\\s\\-.]?\\d{4}(?!\\d)");
+    private static final Pattern ADDRESS_PATTERN = Pattern.compile("(?im)^\\s*\\d{2,6}\\s+[A-Za-z0-9.#'\\- ]{3,}\\s(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Drive|Dr|Lane|Ln|Court|Ct|Way)\\b[^\\n]*$");
+    private static final Pattern FULL_NAME_PATTERN = Pattern.compile("(?i)\\bSamhith\\s+Cheruku\\b");
     private static final Set<String> STOP_WORDS = new HashSet<>(List.of(
             "a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "has", "have", "he", "her", "his",
             "i", "in", "is", "it", "its", "of", "on", "or", "that", "the", "their", "them", "they", "this", "to",
@@ -53,7 +57,7 @@ public class ResumeKnowledgeBaseService {
     }
 
     public synchronized ResumeUploadResponse indexResume(String resumeName, String rawResumeText) {
-        String normalized = normalizeText(rawResumeText);
+        String normalized = sanitizeSensitiveDetails(normalizeText(rawResumeText));
         if (normalized.isBlank()) {
             throw new IllegalArgumentException("Resume contains no readable text.");
         }
@@ -351,6 +355,22 @@ public class ResumeKnowledgeBaseService {
                 .replaceAll("Confidential Client");
         redacted = ORG_SUFFIX_PATTERN.matcher(redacted)
                 .replaceAll("Confidential Client");
+        redacted = EMAIL_PATTERN.matcher(redacted)
+                .replaceAll("[REDACTED_EMAIL]");
+        redacted = PHONE_PATTERN.matcher(redacted)
+                .replaceAll("[REDACTED_PHONE]");
+        redacted = ADDRESS_PATTERN.matcher(redacted)
+                .replaceAll("[REDACTED_ADDRESS]");
+        redacted = FULL_NAME_PATTERN.matcher(redacted)
+                .replaceAll("Samhith");
+        return redacted;
+    }
+
+    private String sanitizeSensitiveDetails(String text) {
+        String redacted = EMAIL_PATTERN.matcher(text).replaceAll("[REDACTED_EMAIL]");
+        redacted = PHONE_PATTERN.matcher(redacted).replaceAll("[REDACTED_PHONE]");
+        redacted = ADDRESS_PATTERN.matcher(redacted).replaceAll("[REDACTED_ADDRESS]");
+        redacted = FULL_NAME_PATTERN.matcher(redacted).replaceAll("Samhith");
         return redacted;
     }
 
